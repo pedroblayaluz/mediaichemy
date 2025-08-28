@@ -1,6 +1,7 @@
-# tests/test_media.py
 import pytest
-from mediaichemy.media.single.image import Image, ImageParameters
+
+from mediaichemy.media.single.image import (Image,
+                                            ImageParameters)
 from tests._mocks.files import expected_outputs
 
 

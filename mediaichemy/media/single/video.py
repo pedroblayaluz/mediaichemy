@@ -1,5 +1,5 @@
-from ..media import SingleMedia
-from ..parameters import VideoParameters
+from mediaichemy.media.single.single import SingleMedia
+from mediaichemy.media.parameters import VideoParameters
 
 
 class Video(SingleMedia):

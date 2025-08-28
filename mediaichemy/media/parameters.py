@@ -1,8 +1,9 @@
 from typing import Optional
-from pydantic.dataclasses import dataclass
 from dataclasses import field
-import pysubs2
 from typing import List
+
+from pydantic.dataclasses import dataclass
+import pysubs2
 
 
 @dataclass
@@ -33,24 +34,24 @@ class VideoFromImageParameters(VisualParameters):
 
 
 @dataclass
-class SpeechParameters:
+class YoutubeAudioParameters:
+    youtube_urls: list[str] = field(default_factory=list)
+
+
+@dataclass
+class NarrationParameters:
     narration_text: str = ''
     voice_name: str = "en_US-amy-medium"
     silence_tail: float = 5
 
 
 @dataclass
-class YoutubeAudioParameters:
-    youtube_urls: list[str] = field(default_factory=list)
-
-
-@dataclass
-class SpeechWithBackgroundParameters(SpeechParameters, YoutubeAudioParameters):
+class NarrationWithBackgroundParameters(NarrationParameters, YoutubeAudioParameters):
     relative_volume: float = 0.5
 
 
 @dataclass
-class NarratedVideoWithBackgroundParameters(VideoFromImageParameters, SpeechWithBackgroundParameters):
+class NarratedVideoParameters(VideoFromImageParameters, NarrationWithBackgroundParameters):
     pass
 
 
@@ -97,5 +98,5 @@ class SubtitleParameters:
 
 
 @dataclass
-class SubtitledNarratedVideoParameters(NarratedVideoWithBackgroundParameters, SubtitleParameters):
+class SubtitledNarratedVideoParameters(NarratedVideoParameters, SubtitleParameters):
     pass

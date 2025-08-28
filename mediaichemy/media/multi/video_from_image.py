@@ -1,5 +1,5 @@
-from ..media import MultiMedia
-from ..parameters import VideoFromImageParameters
+from mediaichemy.media.multi.multi import MultiMedia
+from mediaichemy.media.parameters import VideoFromImageParameters
 
 
 class VideoFromImage(MultiMedia):

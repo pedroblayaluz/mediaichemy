@@ -1,12 +1,13 @@
+from mediaichemy.file import utils, AudioFile, VideoFile
+
+from .editors import (AudioEditor,
+                      VideoEditor,
+                      SubtitleEditor)
 from .media_sources.ai import (ImageAI,
                                VideoAI,
                                VideoFromImageAI,
                                VoiceAI)
-from .editors import (AudioEditor,
-                      VideoEditor,
-                      SubtitleEditor)
 from .media_sources.platforms import YoutubeVideoList
-from mediaichemy.file import utils, AudioFile, VideoFile
 
 
 class StudioFacade:
@@ -34,13 +35,13 @@ class StudioFacade:
                                                video_output_path=video_path,
                                                **self.params.__dict__)
 
-    def create_speech(self, directory: str = None):
-        output_path = utils.get_next_available_path(directory + 'speech.wav')
-        speech = VoiceAI().synthesize_speech(text=self.params.narration_text,
-                                             voice_name=self.params.voice_name,
-                                             output_path=output_path)
-        AudioEditor(speech).add_silence_tail(duration=self.params.silence_tail)
-        return speech
+    def create_narration(self, directory: str = None):
+        output_path = utils.get_next_available_path(directory + 'narration.wav')
+        narration = VoiceAI().synthesize_speech(text=self.params.narration_text,
+                                                voice_name=self.params.voice_name,
+                                                output_path=output_path)
+        AudioEditor(narration).add_silence_tail(duration=self.params.silence_tail)
+        return narration
 
     def download_youtube_mp3(self, directory: str = None):
         output_path = utils.get_next_available_path(directory + 'youtube.mp3')

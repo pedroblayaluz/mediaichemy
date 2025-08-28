@@ -1,6 +1,7 @@
-# tests/test_media.py
 import pytest
-from mediaichemy.media.single.video import Video, VideoParameters
+
+from mediaichemy.media.single.video import (Video,
+                                            VideoParameters)
 from tests._mocks.files import expected_outputs
 
 
