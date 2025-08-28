@@ -1,0 +1,12 @@
+from ..media import MultiMedia
+from ..parameters import VideoFromImageParameters
+
+
+class VideoFromImage(MultiMedia):
+    def __init__(self,
+                 params: VideoFromImageParameters = VideoFromImageParameters()):
+        super().__init__(params=params)
+
+    async def create(self):
+        video_from_image, cost = await self.studio.create_video_from_image(self.output_dir)
+        return self.unpack(video_from_image), cost

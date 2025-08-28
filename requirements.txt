@@ -1,0 +1,22 @@
+# Core dependencies
+ffmpeg-python
+httpx
+mutagen
+Pillow
+piper-tts
+pydantic-ai
+pydantic
+pysubs2
+pytest
+requests
+runware
+setuptools
+urllib3
+youtube-transcript-api
+yt-dlp
+
+# Testing dependencies
+pytest
+pytest-asyncio
+pytest-cov
+flake8
