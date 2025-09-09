@@ -174,7 +174,8 @@ cython_debug/
 # PyPI configuration file
 .pypirc
 
-# Specific mediaichemy files
+# Specific mediaichemy files/media
+media/
 keys.json
 content/*
 dev.ipynb
