@@ -16,6 +16,7 @@ class Media(ABC):
         """Create a media object from the given source."""
         pass
 
+    @property
     @abstractmethod
     def output_dir(self) -> str:
         pass
@@ -25,5 +26,13 @@ class Media(ABC):
         return f"media/{self.name}/"
 
     @property
+    def instructions(self) -> str:
+        """Override this to add specific instructions on how to create this type of media"""
+        return ("")
+
+    @property
     def name(self) -> str:
         return self.__class__.__name__.lower()
+
+    async def create_captions(self):
+        return await self.studio.create_captions(self.output_dir)

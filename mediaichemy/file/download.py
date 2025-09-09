@@ -3,6 +3,8 @@ from requests.adapters import HTTPAdapter
 from urllib3.util.retry import Retry
 import os
 from . import utils
+from logging import getLogger
+logger = getLogger(__name__)
 
 
 class HTTPDownloader:
@@ -36,6 +38,7 @@ class HTTPDownloader:
         Download the URL to destination (streaming write). Returns the destination path.
         Ensures destination directory exists.
         """
+        logger.info(f"Downloading {url} to {destination}")
         dest_dir = os.path.dirname(destination) or "."
         utils.ensure_dir(dest_dir)
 
@@ -46,5 +49,5 @@ class HTTPDownloader:
             for chunk in resp.iter_content(chunk_size=8192):
                 if chunk:
                     fh.write(chunk)
-
+        logger.debug(f"Finished downloading {url} to {destination}")
         return destination

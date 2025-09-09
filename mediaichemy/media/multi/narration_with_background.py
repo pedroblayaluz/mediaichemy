@@ -3,8 +3,10 @@ from mediaichemy.media.parameters import NarrationWithBackgroundParameters
 
 
 class NarrationWithBackground(MultiMedia):
+    params_class = NarrationWithBackgroundParameters
+
     def __init__(self,
-                 params: NarrationWithBackgroundParameters = NarrationWithBackgroundParameters()):
+                 params: NarrationWithBackgroundParameters):
         super().__init__(params=params)
 
     async def create(self):

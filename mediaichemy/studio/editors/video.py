@@ -1,10 +1,13 @@
-from .editor import Editor
-from mediaichemy.file import VideoFile, ImageFile
+
 import subprocess
 import os
 from math import ceil
+
+from mediaichemy.file import VideoFile, ImageFile
+from mediaichemy.ai import VideoAI
+from mediaichemy.studio.editors.editor import Editor
+
 from logging import getLogger
-from mediaichemy.studio.media_sources.ai import VideoAI
 logger = getLogger(__name__)
 
 

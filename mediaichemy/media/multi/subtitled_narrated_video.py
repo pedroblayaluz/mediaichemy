@@ -4,8 +4,10 @@ from mediaichemy.media.parameters import SubtitledNarratedVideoParameters
 
 
 class SubtitledNarratedVideo(NarratedVideo):
+    params_class = SubtitledNarratedVideoParameters
+
     def __init__(self,
-                 params: SubtitledNarratedVideoParameters = SubtitledNarratedVideoParameters()):
+                 params: SubtitledNarratedVideoParameters):
         super().__init__(params=params)
 
     async def create(self):
@@ -14,6 +16,6 @@ class SubtitledNarratedVideo(NarratedVideo):
 
     async def create_subtitled_video(self):
         narrated_video, cost = await self.create_narrated_video()
-        subtitled_videos = self.studio.make_subtitled_videos(narrated_video)
+        subtitled_videos = self.studio.produce_subtitled_videos(narrated_video)
         narrated_video.delete()
         return subtitled_videos, cost

@@ -3,8 +3,10 @@ from mediaichemy.media.parameters import NarratedVideoParameters
 
 
 class NarratedVideo(NarrationWithBackground):
+    params_class = NarratedVideoParameters
+
     def __init__(self,
-                 params: NarratedVideoParameters = NarratedVideoParameters()):
+                 params: NarratedVideoParameters):
         super().__init__(params=params)
 
     async def create(self):

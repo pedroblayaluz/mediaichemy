@@ -4,13 +4,13 @@ import logging
 from mediaichemy.file import VideoFile, SubtitleFile
 from .editor import Editor
 import pysubs2
-from dataclasses import dataclass
+from pydantic.dataclasses import dataclass
 from mediaichemy.media.parameters import SubtitleParameters
 
 logger = logging.getLogger(__name__)
 
 
-@dataclass
+@dataclass(kw_only=True)
 class SubtitleEntry:
     """Represents a single subtitle with timing information."""
     start: float

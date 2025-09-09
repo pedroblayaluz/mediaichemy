@@ -183,3 +183,4 @@ test_output/
 voices/
 *.DS_Store
 .vscode/
+prompts

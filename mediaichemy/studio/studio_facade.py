@@ -1,13 +1,15 @@
 from mediaichemy.file import utils, AudioFile, VideoFile
 
-from .editors import (AudioEditor,
-                      VideoEditor,
-                      SubtitleEditor)
-from .media_sources.ai import (ImageAI,
-                               VideoAI,
-                               VideoFromImageAI,
-                               VoiceAI)
-from .media_sources.platforms import YoutubeVideoList
+from mediaichemy.ai import (ImageAI,
+                            VideoAI,
+                            VideoFromImageAI,
+                            VoiceAI,
+                            ChatAI)
+from mediaichemy.studio.editors import (AudioEditor,
+                                        VideoEditor,
+                                        SubtitleEditor)
+from mediaichemy.studio.sources.platforms import YoutubeVideoList
+from mediaichemy.studio.captions import CaptionMaker
 
 
 class StudioFacade:
@@ -35,6 +37,13 @@ class StudioFacade:
                                                video_output_path=video_path,
                                                **self.params.__dict__)
 
+    def create_media_agent(self,
+                           system_prompt):
+        chat_ai = ChatAI()
+        agent = chat_ai.create_agent(output_type=self.params,
+                                     system_prompt=system_prompt)
+        return agent
+
     def create_narration(self, directory: str = None):
         output_path = utils.get_next_available_path(directory + 'narration.wav')
         narration = VoiceAI().synthesize_speech(text=self.params.narration_text,
@@ -42,6 +51,15 @@ class StudioFacade:
                                                 output_path=output_path)
         AudioEditor(narration).add_silence_tail(duration=self.params.silence_tail)
         return narration
+
+    async def create_captions(self, directory: str = None):
+        caption_maker = CaptionMaker(parameters=self.params)
+        self.captions = await caption_maker.create_captions_from_parameters()
+        captions_str = self.captions.to_string()
+        output_path = utils.get_next_available_path(directory + 'captions.txt')
+        with open(output_path, 'w') as f:
+            f.write(captions_str)
+        return self.captions
 
     def download_youtube_mp3(self, directory: str = None):
         output_path = utils.get_next_available_path(directory + 'youtube.mp3')
@@ -61,8 +79,8 @@ class StudioFacade:
     def add_audio_track_to_video(self, video: VideoFile, audio: AudioFile):
         return VideoEditor(video).add_audio_track_to_video(audio)
 
-    def make_subtitled_videos(self,
-                              video: VideoFile):
+    def produce_subtitled_videos(self,
+                                 video: VideoFile):
         sub_editor = SubtitleEditor(video,
                                     text=self.params.narration_text,
                                     params=self.params)

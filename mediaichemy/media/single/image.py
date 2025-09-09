@@ -3,8 +3,10 @@ from mediaichemy.media.parameters import ImageParameters
 
 
 class Image(SingleMedia):
+    params_class = ImageParameters
+
     def __init__(self,
-                 params: ImageParameters = ImageParameters()):
+                 params: ImageParameters):
         super().__init__(params=params)
 
     async def create(self):

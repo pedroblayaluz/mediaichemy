@@ -3,8 +3,10 @@ from mediaichemy.media.parameters import NarrationParameters
 
 
 class Narration(SingleMedia):
+    params_class = NarrationParameters
+
     def __init__(self,
-                 params: NarrationParameters = NarrationParameters()):
+                 params: NarrationParameters):
         super().__init__(params=params)
 
     async def create(self):

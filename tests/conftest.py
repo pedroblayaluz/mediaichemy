@@ -1,7 +1,7 @@
 import random
 import pytest
 
-from mediaichemy.studio.media_sources import ai
+from mediaichemy import ai
 from mediaichemy.file import HTTPDownloader
 
 from tests._mocks.mockers import MockDownloader, MockRunwareClient, MockAgent

@@ -3,8 +3,10 @@ from mediaichemy.media.parameters import VideoFromImageParameters
 
 
 class VideoFromImage(MultiMedia):
+    params_class = VideoFromImageParameters
+
     def __init__(self,
-                 params: VideoFromImageParameters = VideoFromImageParameters()):
+                 params: VideoFromImageParameters):
         super().__init__(params=params)
 
     async def create(self):
