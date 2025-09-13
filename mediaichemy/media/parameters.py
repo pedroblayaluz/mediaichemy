@@ -30,6 +30,7 @@ class NarrationParameters(BaseModel):
                                 description="The text to be narrated in the video, limited to 200 characters")
     narration_voice_name: str = "en_US-amy-medium"
     narration_silence_tail: float = 5
+    narration_speed: float = 1.0
 
 
 class NarrationWithBackgroundParameters(NarrationParameters):

@@ -62,7 +62,7 @@ def mock_random_start(monkeypatch):
 @pytest.fixture(autouse=True)
 def mock_narration_synthesis(monkeypatch):
 
-    def mock_synthesize(self, text, output_path, narration_voice_name):
+    def mock_synthesize(self, text, output_path, speed, voice_name):
         mock_audio = mock_files.narration
         output = mock_audio.copy(output_path)
         return output

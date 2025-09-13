@@ -49,7 +49,8 @@ class StudioFacade:
     def create_narration(self, directory: str):
         output_path = utils.get_next_available_path(directory + 'narration.wav')
         narration = VoiceAI().synthesize_speech(text=self.params.narration_text,
-                                                narration_voice_name=self.params.narration_voice_name,
+                                                voice_name=self.params.narration_voice_name,
+                                                speed=self.params.narration_speed,
                                                 output_path=output_path)
         AudioEditor(narration).add_silence_tail(duration=self.params.narration_silence_tail)
         return narration

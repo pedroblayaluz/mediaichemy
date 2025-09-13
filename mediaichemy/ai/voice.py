@@ -1,4 +1,4 @@
-from piper import PiperVoice
+from piper import PiperVoice, SynthesisConfig
 import wave
 import subprocess
 from pathlib import Path
@@ -20,9 +20,11 @@ class VoiceAI:
     def synthesize_speech(self,
                           text: str,
                           output_path: str,
-                          narration_voice_name: str) -> AudioFile:
-        voice_path = self._download_piper_voice(narration_voice_name)
+                          voice_name: str,
+                          speed: float = 1) -> AudioFile:
+        syn_config = SynthesisConfig(length_scale=speed)
+        voice_path = self._download_piper_voice(voice_name)
         voice = PiperVoice.load(voice_path)
         with wave.open(output_path, "wb") as wav_file:
-            voice.synthesize_wav(text, wav_file)
+            voice.synthesize_wav(text, wav_file, syn_config=syn_config)
         return AudioFile(output_path)
