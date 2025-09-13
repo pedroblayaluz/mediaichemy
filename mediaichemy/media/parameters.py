@@ -46,7 +46,7 @@ class SubtitleParameters(BaseModel):
     subtitle_fontsize: int = 18
 
     subtitle_color: str = "#FFEE00C7"
-    subtitle_outlinecolor: str = "#000000"
+    subtitle_outline_color: str = "#000000"
 
     subtitle_positions: List[str] = Field(default_factory=lambda: ["bottom_center", "top_center", "middle_center"])
 

@@ -114,7 +114,7 @@ class SubtitlesASSMaker:
         style.fontname = self.params.subtitle_fontname
         style.fontsize = self.params.subtitle_fontsize
         style.primarycolor = self._hex_to_pysubs_color(self.params.subtitle_color)
-        style.outlinecolor = self._hex_to_pysubs_color(self.params.subtitle_outlinecolor)
+        style.outlinecolor = self._hex_to_pysubs_color(self.params.subtitle_outline_color)
         style.alignment = position
 
         return subtitle_file
