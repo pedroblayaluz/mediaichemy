@@ -53,6 +53,18 @@ class SubtitleTimingEngine:
 
 
 class SubtitlesASSMaker:
+    ALIGNMENTS_MAP = {
+        "bottom_left": pysubs2.Alignment.BOTTOM_LEFT,
+        "bottom_center": pysubs2.Alignment.BOTTOM_CENTER,
+        "bottom_right": pysubs2.Alignment.BOTTOM_RIGHT,
+        "middle_left": pysubs2.Alignment.MIDDLE_LEFT,
+        "middle_center": pysubs2.Alignment.MIDDLE_CENTER,
+        "middle_right": pysubs2.Alignment.MIDDLE_RIGHT,
+        "top_left": pysubs2.Alignment.TOP_LEFT,
+        "top_center": pysubs2.Alignment.TOP_CENTER,
+        "top_right": pysubs2.Alignment.TOP_RIGHT,
+    }
+
     def __init__(self,
                  entries: list[SubtitleEntry],
                  video: VideoFile,
@@ -61,52 +73,65 @@ class SubtitlesASSMaker:
         self.params = params
         self.video = video
 
-    def create_styled_subtitle_templates(self) -> list[SubtitleFile]:
-        style_params = self.params
-        alignment_values = [style_params.alignments_map[align_str] for align_str in style_params.alignments]
-
+    def create_styled_subtitle_templates_for_positions(self) -> list[pysubs2.SSAFile]:
+        positions = self._get_alignment_positions()
         subtitle_templates = []
 
-        for alignment in alignment_values:
-            subtitle_file = pysubs2.SSAFile()
-            style = subtitle_file.styles["Default"]
-
-            # Apply all style parameters
-            style.fontname = style_params.fontname
-            style.fontsize = style_params.fontsize
-
-            # Handle color conversions
-            style.primarycolor = pysubs2.Color(*map(int, style_params.primarycolor.split(',')))
-            style.secondarycolor = pysubs2.Color(*map(int, style_params.secondarycolor.split(',')))
-            style.outlinecolor = pysubs2.Color(*map(int, style_params.outlinecolor.split(',')))
-            style.backcolor = pysubs2.Color(*map(int, style_params.backcolor.split(',')))
-
-            # Style properties and other settings
-            style.bold = style_params.bold
-            style.italic = style_params.italic
-            style.underline = style_params.underline
-            style.strikeout = style_params.strikeout
-            style.scalex = style_params.scalex
-            style.scaley = style_params.scaley
-            style.spacing = style_params.spacing
-            style.angle = style_params.angle
-            style.borderstyle = style_params.borderstyle
-            style.outline = style_params.outline
-            style.shadow = style_params.shadow
-            style.alignment = alignment
-            style.margin_l = style_params.margin_l
-            style.margin_r = style_params.margin_r
-            style.margin_v = style_params.margin_v
-
+        for position in positions:
+            subtitle_file = self._create_subtitle_file_for_position(position)
             subtitle_templates.append(subtitle_file)
 
         return subtitle_templates
 
+    def _get_alignment_positions(self) -> list[pysubs2.Alignment]:
+        return [self.ALIGNMENTS_MAP[align_str]
+                for align_str in self.params.subtitle_positions]
+
+    def _create_subtitle_file_for_position(self, position: pysubs2.Alignment) -> pysubs2.SSAFile:
+        subtitle_file = pysubs2.SSAFile()
+        style = subtitle_file.styles["Default"]
+
+        style.bold = False
+        style.italic = False
+        style.underline = False
+        style.strikeout = False
+
+        style.scalex = 100
+        style.scaley = 100
+        style.spacing = 0
+        style.angle = 0
+
+        style.borderstyle = 1
+        style.outline = 0.3
+        style.shadow = 1.0
+
+        style.marginl = 10
+        style.marginr = 10
+        style.marginv = 70
+        style.outline = 0.3
+        style.shadow = 1.0
+
+        style.fontname = self.params.subtitle_fontname
+        style.fontsize = self.params.subtitle_fontsize
+        style.primarycolor = self._hex_to_pysubs_color(self.params.subtitle_color)
+        style.outlinecolor = self._hex_to_pysubs_color(self.params.subtitle_outlinecolor)
+        style.alignment = position
+
+        return subtitle_file
+
+    def _hex_to_pysubs_color(self, hex_color: str) -> pysubs2.Color:
+        h = hex_color.lstrip('#')
+        r, g, b = tuple(int(h[i:i+2], 16) for i in (0, 2, 4))
+        a = 0
+        if len(h) >= 8:
+            hex_alpha = int(h[6:8], 16)
+            a = 255 - hex_alpha
+        return pysubs2.Color(r, g, b, a)
+
     def make_files(self, subtitle_entries: list[SubtitleEntry]) -> list[str]:
-        templates = self.create_styled_subtitle_templates()
+        templates = self.create_styled_subtitle_templates_for_positions()
         files = []
         for sub in templates:
-
             for entry in subtitle_entries:
                 sub.append(
                     pysubs2.SSAEvent(
@@ -115,7 +140,6 @@ class SubtitlesASSMaker:
                         text=entry.text
                     )
                 )
-
             # Save the .ass file
             sub_file_path = self.video.path.replace(".mp4", f'_{sub.styles["Default"].alignment}.ass')
             sub.save(sub_file_path)

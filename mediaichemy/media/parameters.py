@@ -1,6 +1,5 @@
 from typing import Optional, List, Literal
 from pydantic import BaseModel, Field
-import pysubs2
 
 
 class VisualParameters(BaseModel):
@@ -46,44 +45,13 @@ class NarratedVideoParameters(VideoFromImageParameters, NarrationWithBackgroundP
 
 
 class SubtitleParameters(BaseModel):
-    fontname: str = "Verdana"
-    fontsize: int = 18
+    subtitle_fontname: str = "Verdana"
+    subtitle_fontsize: int = 18
 
-    primarycolor: str = "255,255,0,0"
-    secondarycolor: str = "255,255,0,0"
-    outlinecolor: str = "0,0,0,0"
-    backcolor: str = "0,0,0,128"
+    subtitle_color: str = "#FFEE00C7"
+    subtitle_outlinecolor: str = "#000000"
 
-    bold: bool = False
-    italic: bool = False
-    underline: bool = False
-    strikeout: bool = False
-
-    scalex: int = 100
-    scaley: int = 100
-    spacing: int = 0
-    angle: int = 0
-
-    borderstyle: int = 1
-    outline: float = 0.3
-    shadow: float = 1.0
-
-    alignments_map: dict[str, pysubs2.Alignment] = {
-        "bottom_left": pysubs2.Alignment.BOTTOM_LEFT,
-        "bottom_center": pysubs2.Alignment.BOTTOM_CENTER,
-        "bottom_right": pysubs2.Alignment.BOTTOM_RIGHT,
-        "middle_left": pysubs2.Alignment.MIDDLE_LEFT,
-        "middle_center": pysubs2.Alignment.MIDDLE_CENTER,
-        "middle_right": pysubs2.Alignment.MIDDLE_RIGHT,
-        "top_left": pysubs2.Alignment.TOP_LEFT,
-        "top_center": pysubs2.Alignment.TOP_CENTER,
-        "top_right": pysubs2.Alignment.TOP_RIGHT,
-    }
-    alignments: List[str] = Field(default_factory=lambda: ["bottom_center", "top_center", "middle_center"])
-
-    margin_l: int = 10
-    margin_r: int = 10
-    margin_v: int = 20
+    subtitle_positions: List[str] = Field(default_factory=lambda: ["bottom_center", "top_center", "middle_center"])
 
 
 class SubtitledNarratedVideoParameters(NarratedVideoParameters, SubtitleParameters):

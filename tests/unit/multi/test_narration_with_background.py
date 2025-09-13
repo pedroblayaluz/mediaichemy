@@ -12,7 +12,7 @@ async def test_narration_with_background_creation(mock_narration_synthesis):
         narration_text='Once upon a time in a land far, far away...',
         voice_name='en_US-amy-medium',
         youtube_urls=[
-            "https://www.youtube.com/watch?v=NTj5EEM_SOY"
+            "https://www.youtube.com/watch?v=aVM6Fbh4hc4"
         ]
     )
     narration_w_bg = NarrationWithBackground(params=narration_w_bg_params)

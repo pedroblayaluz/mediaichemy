@@ -12,7 +12,7 @@ async def test_narrated_video_creation(mock_downloader, mock_runware_client, moc
         narration_text='Once upon a time in a land far, far away...',
         voice_name='en_US-amy-medium',
         youtube_urls=[
-            "https://www.youtube.com/watch?v=NTj5EEM_SOY"
+            "https://www.youtube.com/watch?v=aVM6Fbh4hc4"
         ],
         video_prompt=''
     )
