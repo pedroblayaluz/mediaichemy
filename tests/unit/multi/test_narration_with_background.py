@@ -10,8 +10,8 @@ from tests import assertions
 async def test_narration_with_background_creation(mock_narration_synthesis):
     narration_w_bg_params = NarrationWithBackgroundParameters(
         narration_text='Once upon a time in a land far, far away...',
-        voice_name='en_US-amy-medium',
-        youtube_urls=[
+        narration_voice_name='en_US-amy-medium',
+        background_youtube_urls=[
             "https://www.youtube.com/watch?v=aVM6Fbh4hc4"
         ]
     )

@@ -49,9 +49,9 @@ class StudioFacade:
     def create_narration(self, directory: str):
         output_path = utils.get_next_available_path(directory + 'narration.wav')
         narration = VoiceAI().synthesize_speech(text=self.params.narration_text,
-                                                voice_name=self.params.voice_name,
+                                                narration_voice_name=self.params.narration_voice_name,
                                                 output_path=output_path)
-        AudioEditor(narration).add_silence_tail(duration=self.params.silence_tail)
+        AudioEditor(narration).add_silence_tail(duration=self.params.narration_silence_tail)
         return narration
 
     async def create_captions(self, directory: str):
@@ -67,14 +67,14 @@ class StudioFacade:
     def download_and_mix_youtube_audio(self,
                                        directory: str,
                                        original_audio: AudioFile):
-        if not self.params.youtube_urls:
+        if not self.params.background_youtube_urls:
             return original_audio
         output_path = utils.get_next_available_path(directory + 'youtube.mp3')
-        yt_videos = YoutubeVideoList(self.params.youtube_urls)
+        yt_videos = YoutubeVideoList(self.params.background_youtube_urls)
         background = yt_videos.download_random_from_list(output_path=output_path)
         AudioEditor(background).extract_random_section(duration=original_audio.get_duration())
         AudioEditor(original_audio).mix_with(audio=background,
-                                             relative_volume=self.params.relative_volume)
+                                             background_relative_volume=self.params.background_relative_volume)
         background.delete()
         return original_audio
 

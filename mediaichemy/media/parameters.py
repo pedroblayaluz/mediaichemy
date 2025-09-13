@@ -25,19 +25,16 @@ class VideoFromImageParameters(VisualParameters):
     duration: Optional[int] = 6
 
 
-class YoutubeAudioParameters(BaseModel):
-    youtube_urls: List[str] = []
-
-
 class NarrationParameters(BaseModel):
     narration_text: str = Field(max_length=300,
                                 description="The text to be narrated in the video, limited to 200 characters")
-    voice_name: str = "en_US-amy-medium"
-    silence_tail: float = 5
+    narration_voice_name: str = "en_US-amy-medium"
+    narration_silence_tail: float = 5
 
 
-class NarrationWithBackgroundParameters(NarrationParameters, YoutubeAudioParameters):
-    relative_volume: float = 0.5
+class NarrationWithBackgroundParameters(NarrationParameters):
+    background_relative_volume: float = 0.5
+    background_youtube_urls: List[str] = []
 
 
 class NarratedVideoParameters(VideoFromImageParameters, NarrationWithBackgroundParameters):

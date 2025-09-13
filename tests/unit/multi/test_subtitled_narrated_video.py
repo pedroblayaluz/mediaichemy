@@ -10,8 +10,8 @@ from tests import assertions
 async def test_subtitled_narrated_video_creation(mock_downloader, mock_runware_client, mock_agent):
     subtitled_video_params = SubtitledNarratedVideoParameters(
         narration_text='Once upon a time in a land far, far away...',
-        voice_name='en_US-amy-medium',
-        youtube_urls=[
+        narration_voice_name='en_US-amy-medium',
+        background_youtube_urls=[
             "https://www.youtube.com/watch?v=aVM6Fbh4hc4"
         ],
         video_prompt=''

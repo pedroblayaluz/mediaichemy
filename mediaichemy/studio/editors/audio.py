@@ -42,15 +42,15 @@ class AudioEditor(Editor):
     @Editor.edit_file
     def mix_with(self,
                  audio: AudioFile,
-                 relative_volume: float):
+                 background_relative_volume: float):
 
         if not audio:
             raise ValueError("No MP3 file provided to mix with.")
-        if not (0.0 <= relative_volume <= 2.0):
-            raise ValueError("relative_volume must be between 0 and 2.")
+        if not (0.0 <= background_relative_volume <= 2.0):
+            raise ValueError("background_relative_volume must be between 0 and 2.")
 
-        original_volume = 2.0 - relative_volume
-        new_volume = relative_volume
+        original_volume = 2.0 - background_relative_volume
+        new_volume = background_relative_volume
         command = [
             "ffmpeg",
             "-y",

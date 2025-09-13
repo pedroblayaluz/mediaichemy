@@ -172,7 +172,7 @@ class SubtitleEditor(Editor):
 
     @property
     def subtitle_duration(self):
-        return self.file.get_duration() - self.params.silence_tail
+        return self.file.get_duration() - self.params.narration_silence_tail
 
     def create_timed_entries(self) -> list[SubtitleEntry]:
         timing_engine = SubtitleTimingEngine(text=self.text,

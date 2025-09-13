@@ -9,7 +9,7 @@ from tests._mocks.files import expected_outputs
 async def test_narration_creation():
     narration_params = NarrationParameters(
         narration_text='Once upon a time in a land far, far away...',
-        voice_name='en_US-amy-medium'
+        narration_voice_name='en_US-amy-medium'
     )
     narration = Narration(params=narration_params)
 
