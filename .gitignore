@@ -185,3 +185,4 @@ voices/
 *.DS_Store
 .vscode/
 prompts
+create_video.py

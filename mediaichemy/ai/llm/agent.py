@@ -1,4 +1,3 @@
-import os
 from typing import Optional
 
 from pydantic import BaseModel
@@ -12,9 +11,8 @@ class AgentAI(ChatAI):
     def __init__(self,
                  output_type: BaseModel,
                  system_prompt: str,
-                 model: Optional[str] = None,
-                 openrouter_api_key: str = os.getenv("OPENROUTER_API_KEY", "")):
-        super().__init__(model=model, openrouter_api_key=openrouter_api_key)
+                 model: Optional[str] = None):
+        super().__init__(model=model)
         self.output_type = output_type
         self.system_prompt = system_prompt
         self.agent = self.prepare_agent()

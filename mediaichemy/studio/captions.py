@@ -1,6 +1,8 @@
 from pydantic import BaseModel, Field
 from typing import Optional, List
 from mediaichemy.ai.llm.agent import AgentAI
+import logging
+logger = logging.getLogger(__name__)
 
 
 class SocialMediaCaption(BaseModel):
@@ -17,15 +19,16 @@ class YouTubeShortsCaption(SocialMediaCaption):
 class InstagramReelsCaption(SocialMediaCaption):
     caption: str = Field(
         description='Reels caption (50-125 chars). Include clear call-to-action, 3-5 relevant hashtags, and emojis. '
-                    'Keep tone conversational and authentic. '
-                    'Example: "Try this technique today! Double tap if you agree ❤️ #digitalmarketing"'
+                    'Keep tone conversational and authentic. Use simple and popular hashtags rather than specific ones'
+                    'Example: "Try this technique today! Double tap if you agree ❤️ #trending #viral #reels"'
     )
 
 
 class TikTokCaption(SocialMediaCaption):
     caption: str = Field(
         description='TikTok caption (max 150 chars). Focus on strong CTA, trending hashtags, and casual tone. '
-                    'Be direct and concise. Example: "Wait for the end! ↓ Follow for more tips #learnontiktok"'
+                    'Use the simplest and most popular hashtags possible - avoid specific niche hashtags. '
+                    'Be direct and concise. Example: "Wait for the end! ↓ Follow for more tips #fyp #viral #trending"'
     )
 
 
@@ -60,24 +63,27 @@ class CaptionMaker:
     def __init__(self,
                  parameters: BaseModel,
                  platforms: List[str] = ['youtube_shorts', 'instagram_reels', 'tiktok'],
-                 terms: List[str] = ['text', 'prompt'],
                  model: Optional[str] = None):
         self.parameters = parameters
         self.platforms = platforms
-        self.terms = terms
         self.agent = AgentAI(output_type=Captions,
                              system_prompt=self.system_prompt,
                              model=model)
 
     def extract_content_from_parameters(self) -> str:
-        result = []
         parameters_dict = self.parameters.model_dump()
-        for attr_name, attr_value in parameters_dict.items():
-            if isinstance(attr_value, str) and any(term.lower() in attr_value.lower() for term in self.terms):
-                result.append(f"{attr_name}: {attr_value}")
-        return "CONTENT: \n".join(result)
+        relevant_content_params = [(name, value) for name, value in parameters_dict.items()
+                                   if self._relevant_content_parameter(name)]
+        formatted_params = [f"{name}: {value}" for name, value in relevant_content_params]
+        return "CONTENT TO GENERATE CAPTIONS TO: \n" + "\n".join(formatted_params)
+
+    def _relevant_content_parameter(self, name) -> bool:
+        relevant_content_terms = ['text', 'prompt']
+        return (isinstance(name, str) and
+                any(term.lower() in name.lower() for term in relevant_content_terms))
 
     async def create_captions_from_parameters(self) -> Captions:
         content = self.extract_content_from_parameters()
+        logger.debug(f"Extracted content for caption generation: {content}")
         response = await self.agent.create(user_prompt=content)
         return response.output

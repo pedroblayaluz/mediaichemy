@@ -15,6 +15,8 @@ class NarrationWithBackground(MultiMedia):
 
     def create_narration_with_background(self):
         narration = self.studio.create_narration(self.output_dir)
-        background = self.studio.download_youtube_mp3(self.output_dir)
-        narration = self.studio.mix_audio_with_random_background_section(narration, background)
-        return narration
+        narration_with_background = self.studio.download_and_mix_youtube_audio(
+            directory=self.output_dir,
+            original_audio=narration
+        )
+        return narration_with_background

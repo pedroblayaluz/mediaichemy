@@ -42,15 +42,12 @@ class VideoFromImageAI(VisualAI):
                      image_output_path,
                      video_output_path,
                      **kwargs) -> VideoFile:
-        image_ai = ImageAI(runware_api_key=self.runware_api_key)
-        image, image_cost = await image_ai.create(
+        image, image_cost = await ImageAI().create(
             prompt=prompt,
             output_path=image_output_path,
             **kwargs
         )
-
-        video_ai = VideoAI(runware_api_key=self.runware_api_key)
-        video, video_cost = await video_ai.create(
+        video, video_cost = await VideoAI().create(
             prompt=prompt,
             output_path=video_output_path,
             frameImages=[image.to_iframe_image()],

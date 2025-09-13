@@ -1,10 +1,11 @@
-import os
 from runware import Runware
 import inspect
 from functools import wraps
 from abc import ABC, abstractmethod
 from mediaichemy.file import HTTPDownloader
 from mediaichemy.ai.ai import AIService
+from dotenv import load_dotenv
+load_dotenv()
 
 
 def filter_params_for(target_func):
@@ -24,8 +25,8 @@ def filter_params_for(target_func):
 
 
 class VisualAI(AIService, ABC):
-    def __init__(self, runware_api_key: str = os.getenv("RUNWARE_API_KEY", "")):
-        self.runware_api_key = runware_api_key
+    def __init__(self):
+        self.runware_api_key = self.require_env_var("RUNWARE_API_KEY")
 
     @abstractmethod
     async def create(self,

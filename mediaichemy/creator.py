@@ -26,8 +26,10 @@ class MediaCreator:
     def system_prompt(self) -> str:
         return f"{self.base_system_prompt}\n{self.media_type.instructions}"
 
-    async def create(self, user_prompt: str):
+    async def create(self, user_prompt: str, **kwargs):
         await self.create_outline(user_prompt=user_prompt)
+        if kwargs:
+            self.adjust_outline_params(**kwargs)
         await self.create_media()
         await self.create_captions()
         return self.media

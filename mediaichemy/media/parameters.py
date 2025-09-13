@@ -27,15 +27,12 @@ class VideoFromImageParameters(VisualParameters):
 
 
 class YoutubeAudioParameters(BaseModel):
-    youtube_urls: List[str] = [
-        "https://www.youtube.com/watch?v=57rLUnu23P0",
-        "https://www.youtube.com/watch?v=i8km7dWAsQA",
-        "https://www.youtube.com/watch?v=NTj5EEM_SOY"
-    ]
+    youtube_urls: List[str] = []
 
 
 class NarrationParameters(BaseModel):
-    narration_text: str
+    narration_text: str = Field(max_length=300,
+                                description="The text to be narrated in the video, limited to 200 characters")
     voice_name: str = "en_US-amy-medium"
     silence_tail: float = 5
 

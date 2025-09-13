@@ -1,4 +1,3 @@
-import os
 from typing import Optional
 
 from pydantic_ai import Agent
@@ -9,13 +8,14 @@ from mediaichemy.ai.ai import AIService
 from mediaichemy.ai.llm.openrouter_models import OpenrouterModels
 from mediaichemy.ai.llm.modelfallback import with_model_fallback
 
+from dotenv import load_dotenv
+load_dotenv()
+
 
 class ChatAI(AIService):
     def __init__(self,
-                 model: Optional[str] = None,
-                 openrouter_api_key: str = os.getenv("OPENROUTER_API_KEY", "")
-                 ):
-        self.openrouter_api_key = openrouter_api_key
+                 model: Optional[str] = None):
+        self.openrouter_api_key = self.require_env_var("OPENROUTER_API_KEY")
         self.openrouter_models = OpenrouterModels()
         self.model_list = self._get_model_list()
         self.current_model = model or self.model_list[0]
