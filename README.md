@@ -31,11 +31,38 @@ pip install -e .
 3. Set up API keys for OpenRouter and Runware (see below).
 
 
+## Setting up API keys
 
-### Registration & API Keys
+#### 1. [**Create an OpenRouter Account and obtain an API key**](https://openrouter.ai/signup)
+   - Access your API key from your [OpenRouter dashboard](https://openrouter.ai/keys)
 
-1. **Create accounts** with each provider.
-2. **Obtain API keys** from their dashboards.
-3. **Configure API keys** as environment variables:
-   - `OPENROUTER_API_KEY="your_openrouter_api_key"`
-   - `RUNWARE_API_KEY="your_runware_api_key"`
+#### 2. [**Create a Runware Account and obtain an API key**](https://runware.ai)
+   - Access your API key from your Runware account settings
+
+#### 3. Configure your API keys as environment variables:
+
+Linux/macOS (Terminal):
+```bash
+export OPENROUTER_API_KEY="your_openrouter_api_key"
+export RUNWARE_API_KEY="your_runware_api_key"
+```
+
+Windows (Command Prompt):
+```cmd
+set OPENROUTER_API_KEY=your_openrouter_api_key
+set RUNWARE_API_KEY=your_runware_api_key
+```
+
+Windows (PowerShell)
+```powershell
+$env:OPENROUTER_API_KEY="your_openrouter_api_key"
+$env:RUNWARE_API_KEY="your_runware_api_key"
+```
+
+#### Option 2: Use a .env File
+
+Create a file named `.env` in your project root with the following content:
+```
+OPENROUTER_API_KEY=your_openrouter_api_key
+RUNWARE_API_KEY=your_runware_api_key
+```
