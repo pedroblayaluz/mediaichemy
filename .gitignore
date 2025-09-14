@@ -175,7 +175,7 @@ cython_debug/
 .pypirc
 
 # Specific mediaichemy files/media
-media/
+/media/
 keys.json
 content/*
 dev.ipynb
