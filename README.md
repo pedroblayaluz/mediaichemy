@@ -33,11 +33,10 @@ pip install -e .
 
 ## Setting up API keys
 
-#### 1. [**Create an OpenRouter Account and obtain an API key**](https://openrouter.ai/signup)
-   - Access your API key from your [OpenRouter dashboard](https://openrouter.ai/keys)
-
-#### 2. [**Create a Runware Account and obtain an API key**](https://runware.ai)
-   - Access your API key from your Runware account settings
+#### 1. Create an [OpenRouter Account](https://openrouter.ai/signup)
+- Obtain an [Openrouter API key](https://openrouter.ai/keys)
+#### 3. Create a [Runware Account](https://runware.ai)
+- Obtain a [Runware API key](https://my.runware.ai/keys)
 
 #### 3. Configure your API keys as environment variables:
 
