@@ -1,4 +1,4 @@
-# 🧪 mediaichemy: AI-powered content creation
+# 🧪 mediaichemy: cost-effective AI powered content creation
 
 `mediaichemy` is a Python library for generating **cheap and cost effective** multimedia content using AI. It intelligently selects models and workflows to minimize costs while delivering high-quality results.
 
@@ -85,7 +85,7 @@ RUNWARE_API_KEY=your_runware_api_key
 
 ## Media
 
-Each Media type creates a specific form of content using AI and editing tools.
+Each `Media` type creates a specific form of content using AI and editing tools to craft it.
 
 ### Single Media Examples
 Media created using a single AI source.
