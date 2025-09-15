@@ -29,7 +29,7 @@ install_requires, test_requires = read_requirements_sections()
 
 setup(
     name="mediaichemy",
-    version="0.1.0b1",
+    version="1.0.0",
     description="AI powered cost-effective content creation 🧪",
     long_description=open("README.md").read(),
     long_description_content_type="text/markdown",
