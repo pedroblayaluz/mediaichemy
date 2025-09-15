@@ -30,7 +30,7 @@ install_requires, test_requires = read_requirements_sections()
 setup(
     name="mediaichemy",
     version="0.1.0b1",
-    description="A Python library for AI powered multimedia content creation 🧪",
+    description="AI powered cost-effective content creation 🧪",
     long_description=open("README.md").read(),
     long_description_content_type="text/markdown",
     author="Pedro Blaya Luz",
@@ -47,7 +47,7 @@ setup(
     classifiers=[
         "Development Status :: 4 - Beta",
         "Programming Language :: Python :: 3",
-        "License :: MIT License",
+        "License :: OSI Approved :: MIT License",
         "Operating System :: OS Independent",
     ],
     entry_points={

@@ -31,28 +31,20 @@ Both approaches use the same underlying Media system, with MediaCreator adding a
 ## Getting Started
 
 <img src="logo.png" width="200px" align="right" alt="mediaichemy logo">
-1. Clone the repository:
+1. Install mediaichemy directly from PyPI:
 
 ```bash
-git clone https://github.com/your-repo/mediaichemy.git
-cd mediaichemy
-
+pip install mediaichemy
 ```
 
-2. Install dependencies:
-
-```bash
-pip install -e .
-```
-
-3. Set up API keys for OpenRouter and Runware (see below).
+2. Set up API keys for OpenRouter and Runware (see below).
 
 
 ## Setting up API keys
 
 #### 1. Create an [OpenRouter Account](https://openrouter.ai/signup)
 - Obtain an [Openrouter API key](https://openrouter.ai/keys)
-#### 3. Create a [Runware Account](https://runware.ai)
+#### 2. Create a [Runware Account](https://runware.ai)
 - Obtain a [Runware API key](https://my.runware.ai/keys)
 
 #### 3. Configure your API keys as environment variables:
