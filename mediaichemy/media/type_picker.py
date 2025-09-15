@@ -66,12 +66,10 @@ class MediaTypePicker(AgentAI):
         media_type = MEDIA_TYPES[media_type][0]
         return media_type
 
+    async def pick(self, user_prompt: str):
+        response = await self.create(user_prompt=user_prompt)
+        choice = response.output
 
-async def pick_best_media_type(user_prompt: str):
-    media_picker = MediaTypePicker()
-    response = await media_picker.create(user_prompt=user_prompt)
-    choice = response.output
-
-    media_type = media_picker.get_media_type(choice.media_type)
-    logger.info(f"Chosen media type: {choice.media_type} - {choice.reasoning}")
-    return media_type
+        media_type = self.get_media_type(choice.media_type)
+        logger.info(f"Chosen media type: {choice.media_type} - {choice.reasoning}")
+        return media_type

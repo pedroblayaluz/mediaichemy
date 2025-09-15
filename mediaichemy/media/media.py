@@ -7,9 +7,18 @@ from mediaichemy.studio import Studio
 
 class Media(ABC):
     def __init__(self,
-                 params: Any = None):
-        self.studio = Studio(params)
+                 params: Any = None,
+                 **kwargs):
+        self.params = self._build_params(params, **kwargs)
+        self.studio = Studio(self.params)
         utils.ensure_dir(self.directory)
+
+    def _build_params(self, params, **kwargs):
+        if self.params_class is None:
+            raise NotImplementedError("Subclasses must define params_class")
+        if params is None:
+            params = self.params_class(**kwargs)
+        return params
 
     @abstractmethod
     def create(self, output_path: str):

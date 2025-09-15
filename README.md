@@ -65,3 +65,92 @@ Create a file named `.env` in your project root with the following content:
 OPENROUTER_API_KEY=your_openrouter_api_key
 RUNWARE_API_KEY=your_runware_api_key
 ```
+
+## Media Type Instantiation Examples
+
+You can instantiate each media type with all its parameters like this:
+
+```python
+from mediaichemy.media.single import Image, Video, Narration
+from mediaichemy.media.multi import VideoFromImage, NarrationWithBackground, NarratedVideo, SubtitledNarratedVideo
+
+# Image
+image = Image(params=Image.params_class(
+    image_prompt="A cat on a skateboard",
+    image_model="rundiffusion:110@101"
+))
+
+# Video
+video = Video(params=Video.params_class(
+    video_prompt="A dog running in the park",
+    video_model="bytedance:1@1",
+    duration=10.0,
+    width=1088,
+    height=1920
+))
+
+# Narration
+narration = Narration(params=Narration.params_class(
+    narration_text="Welcome to the show!",
+    narration_voice_name="en_US-amy-medium",
+    narration_silence_tail=5,
+    narration_speed=1.0
+))
+
+# Video from Image
+video_from_image = VideoFromImage(params=VideoFromImage.params_class(
+    video_prompt="A sunrise over mountains",
+    image_model="rundiffusion:110@101",
+    video_model="bytedance:1@1",
+    duration=6,
+    width=1088,
+    height=1920
+))
+
+# Narration with Background
+narration_bg = NarrationWithBackground(params=NarrationWithBackground.params_class(
+    narration_text="Relax and breathe.",
+    narration_voice_name="en_US-amy-medium",
+    narration_silence_tail=5,
+    narration_speed=1.0,
+    background_relative_volume=0.5,
+    background_youtube_urls=["https://youtube.com/example"]
+))
+
+# Narrated Video
+narrated_video = NarratedVideo(params=NarratedVideo.params_class(
+    video_prompt="A city at night",
+    image_model="rundiffusion:110@101",
+    video_model="bytedance:1@1",
+    duration=6,
+    width=1088,
+    height=1920,
+    narration_text="The city never sleeps.",
+    narration_voice_name="en_US-amy-medium",
+    narration_silence_tail=5,
+    narration_speed=1.0,
+    background_relative_volume=0.5,
+    background_youtube_urls=[]
+))
+
+# Subtitled Narrated Video
+subtitled_narrated_video = SubtitledNarratedVideo(params=SubtitledNarratedVideo.params_class(
+    video_prompt="A forest in the rain",
+    image_model="rundiffusion:110@101",
+    video_model="bytedance:1@1",
+    duration=6,
+    width=1088,
+    height=1920,
+    narration_text="Listen to the rain.",
+    narration_voice_name="en_US-amy-medium",
+    narration_silence_tail=5,
+    narration_speed=1.0,
+    background_relative_volume=0.5,
+    background_youtube_urls=[],
+    subtitle_fontname="Arial",
+    subtitle_fontsize=18,
+    subtitle_color="#FFEE00C7",
+    subtitle_outline_color="#000000",
+    subtitle_positions=["bottom_center", "top_center", "middle_center"]
+))
+```
