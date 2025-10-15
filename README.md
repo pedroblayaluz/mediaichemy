@@ -163,10 +163,6 @@ from mediaichemy.media.parameters import StorylineVideoParameters
 storyline_video_params = StorylineVideoParameters(
     video_prompt="A forest in the rain",
     image_model="rundiffusion:110@101",
-
-
-
-
     video_model="bytedance:1@1",
     width=1088,
     height=1920,
