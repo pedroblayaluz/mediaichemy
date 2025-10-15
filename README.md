@@ -97,7 +97,7 @@ image_params = ImageParameters(
 )
 image = await Image(params=image_params).create()
 ```
-<img src="tests/examples/image/skateboard_cat.png"></img>
+<img src="tests/examples/image/skateboard_cat.png" width="400" alt="Skateboard Cat">
 
 
 #### Video
@@ -220,4 +220,4 @@ media = await creator.create(
     user_prompt="Create an image of a dog wearing a space helmet."
 )
 ```
-<img src="tests/examples/image/astro_dog.jpg"></img>
+<img src="tests/examples/image/astro_dog.jpg" width="400" alt="Astro Dog">
