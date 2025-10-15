@@ -113,7 +113,6 @@ video_params = VideoParameters(
 )
 video = await Video(params=video_params).create()
 ```
-https://raw.githubusercontent.com/pedroblayaluz/mediaichemy/refs/heads/main/tests/examples/video/space_dog.mp4
 
 #### Narration
 ```python
@@ -151,6 +150,7 @@ image_video_params = ImageVideoParameters(
 )
 image_video = await ImageVideo(params=image_video_params).create()
 ```
+
 https://raw.githubusercontent.com/pedroblayaluz/mediaichemy/refs/heads/main/tests/examples/imagevideo/pink_mantis.mp4
 
 #### Storyline Video
@@ -161,6 +161,10 @@ from mediaichemy.media.parameters import StorylineVideoParameters
 storyline_video_params = StorylineVideoParameters(
     video_prompt="A forest in the rain",
     image_model="rundiffusion:110@101",
+
+
+
+
     video_model="bytedance:1@1",
     width=1088,
     height=1920,
@@ -178,8 +182,7 @@ storyline_video_params = StorylineVideoParameters(
 )
 storyline_video = await StorylineVideo(params=storyline_video_params).create()
 ```
-https://raw.githubusercontent.com/pedroblayaluz/mediaichemy/refs/heads/main/tests/examples/storyline/rain.mp4
-
+https://github.com/user-attachments/assets/16e9170f-eab2-442a-a8d5-87204acbd662
 ## Using the MediaCreator
 
 By using `MediaCreator`, you let AI create ideas for you. You can use it to generate content for a specific media type or let it pick the best type for you automatically based on your prompt.
