@@ -1,5 +1,5 @@
 from .multi import MultiMedia
-from .video_from_image import VideoFromImage, VideoFromImageParameters
-from .narration_with_background import NarrationWithBackground, NarrationWithBackgroundParameters
-from .narrated_video import NarratedVideo, NarratedVideoParameters
-from .subtitled_narrated_video import SubtitledNarratedVideo, SubtitledNarratedVideoParameters
+from .image_video import ImageVideo, ImageVideoParameters
+from .storyline_video import NarrationWithBackground, NarrationWithBackgroundParameters
+from .storyline_video import NarratedVideo, NarratedVideoParameters
+from .storyline_video import StorylineVideo, StorylineVideoParameters

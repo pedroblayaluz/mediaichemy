@@ -2,6 +2,10 @@
 
 `mediaichemy` is a Python library for generating **cheap and cost effective** multimedia content using AI. It intelligently selects models and workflows to minimize costs while delivering high-quality results.
 
+The library relies on:
+- [Runware](https://runware.ai) for image and video generation
+- [OpenRouter](https://openrouter.ai) for general AI and text completions
+- [Piper TTS](https://github.com/OHF-Voice/piper1-gpl?tab=readme-ov-file): text-to-speech synthesis
 ## Usage ovewview
 
 `mediaichemy` offers a simple yet powerful approach to content creation:
@@ -91,8 +95,10 @@ image_params = ImageParameters(
     image_prompt="A cat on a skateboard",
     image_model="rundiffusion:110@101"
 )
-image = Image(params=image_params)
+image = await Image(params=image_params).create()
 ```
+<img src="tests/examples/image/skateboard_cat.png"></img>
+
 
 #### Video
 ```python
@@ -100,14 +106,14 @@ from mediaichemy.media.single import Video
 from mediaichemy.media.parameters import VideoParameters
 
 video_params = VideoParameters(
-    video_prompt="A dog running in the park",
+    video_prompt="A dog floating in outer space",
     video_model="bytedance:1@1",
-    duration=10.0,
     width=1088,
     height=1920
 )
-video = Video(params=video_params)
+video = await Video(params=video_params).create()
 ```
+<video src="tests/examples/video/space_dog.mp4"></video>
 
 #### Narration
 ```python
@@ -115,85 +121,51 @@ from mediaichemy.media.single import Narration
 from mediaichemy.media.parameters import NarrationParameters
 
 narration_params = NarrationParameters(
-    narration_text="Welcome to the show!",
-    narration_voice_name="en_US-amy-medium",
+    narration_text=("A student asked the master, "
+                    "What is the sound of one hand clapping? "
+                    "The master simply held up his hand."),
+    narration_voice_name="en_US-joe-medium",
     narration_silence_tail=5,
     narration_speed=1.0
 )
-narration = Narration(params=narration_params)
+narration = await Narration(params=narration_params).create()
 ```
-
+<audio src="tests/examples/narration/koan.mp3" controls></audio>
 ### Multi Media Examples
 Media created combining multiple AI sources.
 
-#### Video from Image
-```python
-from mediaichemy.media.multi import VideoFromImage
-from mediaichemy.media.parameters import VideoFromImageParameters
+#### Image Video
+A video created by first creating an image, then animating it.
+Enabling more customization on the starter image.
 
-video_from_image_params = VideoFromImageParameters(
-    video_prompt="A sunrise over mountains",
+```python
+from mediaichemy.media.multi import ImageVideo
+from mediaichemy.media.parameters import ImageVideoParameters
+
+image_video_params = ImageVideoParameters(
+    video_prompt="A hyper realistic pink mantis wearing a tuxedo.",
     image_model="rundiffusion:110@101",
     video_model="bytedance:1@1",
-    duration=6,
     width=1088,
     height=1920
 )
-video_from_image = VideoFromImage(params=video_from_image_params)
+image_video = await ImageVideo(params=image_video_params).create()
 ```
+<video src="tests/examples/imagevideo/pink_mantis.mp4" controls></video>
 
-#### Narration with Background
+#### Storyline Video
 ```python
-from mediaichemy.media.multi import NarrationWithBackground
-from mediaichemy.media.parameters import NarrationWithBackgroundParameters
+from mediaichemy.media.multi import StorylineVideo
+from mediaichemy.media.parameters import StorylineVideoParameters
 
-narration_bg_params = NarrationWithBackgroundParameters(
-    narration_text="Relax and breathe.",
-    narration_voice_name="en_US-amy-medium",
-    narration_silence_tail=5,
-    narration_speed=1.0,
-    background_relative_volume=0.5,
-    background_youtube_urls=["https://youtube.com/example"]
-)
-narration_bg = NarrationWithBackground(params=narration_bg_params)
-```
-
-#### Narrated Video
-```python
-from mediaichemy.media.multi import NarratedVideo
-from mediaichemy.media.parameters import NarratedVideoParameters
-
-narrated_video_params = NarratedVideoParameters(
-    video_prompt="A city at night",
-    image_model="rundiffusion:110@101",
-    video_model="bytedance:1@1",
-    duration=6,
-    width=1088,
-    height=1920,
-    narration_text="The city never sleeps.",
-    narration_voice_name="en_US-amy-medium",
-    narration_silence_tail=5,
-    narration_speed=1.0,
-    background_relative_volume=0.5,
-    background_youtube_urls=[]
-)
-narrated_video = NarratedVideo(params=narrated_video_params)
-```
-
-#### Subtitled Narrated Video
-```python
-from mediaichemy.media.multi import SubtitledNarratedVideo
-from mediaichemy.media.parameters import SubtitledNarratedVideoParameters
-
-subtitled_narrated_video_params = SubtitledNarratedVideoParameters(
+storyline_video_params = StorylineVideoParameters(
     video_prompt="A forest in the rain",
     image_model="rundiffusion:110@101",
     video_model="bytedance:1@1",
-    duration=6,
     width=1088,
     height=1920,
     narration_text="Listen to the rain.",
-    narration_voice_name="en_US-amy-medium",
+    narration_voice_name="en_US-joe-medium",
     narration_silence_tail=5,
     narration_speed=1.0,
     background_relative_volume=0.5,
@@ -204,8 +176,9 @@ subtitled_narrated_video_params = SubtitledNarratedVideoParameters(
     subtitle_outline_color="#000000",
     subtitle_positions=["bottom_center", "top_center", "middle_center"]
 )
-subtitled_narrated_video = SubtitledNarratedVideo(params=subtitled_narrated_video_params)
+storyline_video = await StorylineVideo(params=storyline_video_params).create()
 ```
+<video src="tests/examples/storyline/rain.mp4" controls></video>
 
 ## Using the MediaCreator
 
@@ -217,14 +190,19 @@ By using `MediaCreator`, you let AI create ideas for you. You can use it to gene
 
 ```python
 from mediaichemy.creator import MediaCreator
-from mediaichemy.media.multi import SubtitledNarratedVideo
+from mediaichemy.media import StorylineVideo
 
-creator = MediaCreator(media_type=SubtitledNarratedVideo)
-media = await creator.create(
-    user_prompt="Create a short, inspiring narrated video about the beauty of rainforests, with subtitles."
-)
-# media is an instance of SubtitledNarratedVideo
+creator = MediaCreator(
+    creator_model='anthropic/claude-sonnet-4.5',
+    media_type=StorylineVideo)
+
+media = await creator.create(user_prompt=(
+    "Create a short video telling a zen koan."
+    "The video features a hyperrealistic detailed natural setting."),
+    narration_voice_name='en_US-joe-medium')
 ```
+<video src="tests/examples/storyline//koan.mp4"></video>
+
 
 #### Letting MediaCreator pick the best media type
 
@@ -233,7 +211,7 @@ from mediaichemy.creator import MediaCreator
 
 creator = MediaCreator()  # No media_type specified
 media = await creator.create(
-    user_prompt="Create a TikTok post that explains quantum entanglement in a fun and visual way."
+    user_prompt="Create an image of a dog wearing a space helmet."
 )
-# media will be an instance of the most appropriate media type (e.g., SubtitledNarratedVideo)
 ```
+<img src="tests/examples/image/astro_dog.jpg"></img>

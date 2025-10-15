@@ -43,5 +43,6 @@ class Media(ABC):
     def name(self) -> str:
         return self.__class__.__name__.lower()
 
-    async def create_captions(self):
-        return await self.studio.create_captions(self.output_dir)
+    async def create_captions(self, model: str = None):
+        return await self.studio.create_captions(self.output_dir,
+                                                 model=model)

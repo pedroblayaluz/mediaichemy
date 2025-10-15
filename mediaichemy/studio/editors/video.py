@@ -116,7 +116,7 @@ class VideoEditor(Editor):
         return ImageFile(output_path)
 
     @staticmethod
-    def create_video_from_image(image: ImageFile, duration: int) -> VideoFile:
+    def create_image_video(image: ImageFile, duration: int) -> VideoFile:
         video_path = image.path.replace(".jpg", "_video.mp4")
         command = [
             "ffmpeg",

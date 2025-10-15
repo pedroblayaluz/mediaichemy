@@ -26,7 +26,7 @@ class SubtitleTimingEngine:
 
     @staticmethod
     def split_into_sentences(text: str) -> list[str]:
-        return [s.strip() for s in re.split(r'(?<=[.,!?]) +', text) if s.strip()]
+        return [s.strip() for s in re.split(r'(?<=[!.,:?])(?=\s|\n|")+', text) if s.strip()]
 
     def make_entries(self) -> list[SubtitleEntry]:
         """Generate timed subtitle entries for the given duration."""

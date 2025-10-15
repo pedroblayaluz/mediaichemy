@@ -36,7 +36,7 @@ class VideoAI(VisualAI):
             raise TimeoutError(f"Video generation timed out after {timeout} seconds")
 
 
-class VideoFromImageAI(VisualAI):
+class ImageVideoAI(VisualAI):
     async def create(self,
                      prompt,
                      image_output_path,

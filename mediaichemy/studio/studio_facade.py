@@ -2,7 +2,7 @@ from mediaichemy.file import utils, AudioFile, VideoFile
 
 from mediaichemy.ai import (ImageAI,
                             VideoAI,
-                            VideoFromImageAI,
+                            ImageVideoAI,
                             VoiceAI,
                             ChatAI)
 from mediaichemy.studio.editors import (AudioEditor,
@@ -31,13 +31,13 @@ class StudioFacade:
                                       output_path=output_path,
                                       **self.params.__dict__)
 
-    async def create_video_from_image(self, directory: str):
+    async def create_image_video(self, directory: str):
         image_path = utils.get_next_available_path(directory + 'image.jpg')
         video_path = utils.get_next_available_path(directory + 'video.mp4')
-        return await VideoFromImageAI().create(prompt=self.params.video_prompt,
-                                               image_output_path=image_path,
-                                               video_output_path=video_path,
-                                               **self.params.__dict__)
+        return await ImageVideoAI().create(prompt=self.params.video_prompt,
+                                           image_output_path=image_path,
+                                           video_output_path=video_path,
+                                           **self.params.__dict__)
 
     def create_media_agent(self,
                            system_prompt):
@@ -55,8 +55,11 @@ class StudioFacade:
         AudioEditor(narration).add_silence_tail(duration=self.params.narration_silence_tail)
         return narration
 
-    async def create_captions(self, directory: str):
-        caption_maker = CaptionMaker(parameters=self.params)
+    async def create_captions(self,
+                              directory: str,
+                              model: str = None):
+        caption_maker = CaptionMaker(parameters=self.params,
+                                     model=model)
         self.captions = await caption_maker.create_captions_from_parameters()
         captions_str = self.captions.to_string()
         output_path = utils.get_next_available_path(directory + 'captions.txt')

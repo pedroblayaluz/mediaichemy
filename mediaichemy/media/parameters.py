@@ -1,5 +1,5 @@
 from typing import Optional, List, Literal
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, model_validator
 
 
 class VisualParameters(BaseModel):
@@ -18,7 +18,7 @@ class VideoParameters(VisualParameters):
     duration: Optional[float] = None
 
 
-class VideoFromImageParameters(VisualParameters):
+class ImageVideoParameters(VisualParameters):
     video_prompt: str
     image_model: str = "rundiffusion:110@101"
     video_model: str = 'bytedance:1@1'
@@ -34,11 +34,20 @@ class NarrationParameters(BaseModel):
 
 
 class NarrationWithBackgroundParameters(NarrationParameters):
-    background_relative_volume: float = 0.5
+    background_only: bool = False
+    background_relative_volume: Optional[float] = 0.5
     background_youtube_urls: List[str] = []
 
+    @model_validator(mode="after")
+    def check_background_settings(self):
+        if self.background_only:
+            if not self.background_youtube_urls:
+                raise ValueError("background_youtube_urls must be supplied and not empty when background_only is True")
+            self.background_relative_volume = 2
+        return self
 
-class NarratedVideoParameters(VideoFromImageParameters, NarrationWithBackgroundParameters):
+
+class NarratedVideoParameters(ImageVideoParameters, NarrationWithBackgroundParameters):
     pass
 
 
@@ -52,5 +61,5 @@ class SubtitleParameters(BaseModel):
     subtitle_positions: List[str] = Field(default_factory=lambda: ["bottom_center", "top_center", "middle_center"])
 
 
-class SubtitledNarratedVideoParameters(NarratedVideoParameters, SubtitleParameters):
+class StorylineVideoParameters(NarratedVideoParameters, SubtitleParameters):
     pass

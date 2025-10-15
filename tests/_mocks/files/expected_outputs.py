@@ -6,7 +6,7 @@ image = file.ImageFile(f'{EO_PATH}image/image.jpg')
 narration = file.AudioFile(f'{EO_PATH}narration/narration.mp3')
 narration_with_background = file.AudioFile(f'{EO_PATH}narrationwithbackground/narration.mp3')
 video = file.VideoFile(f'{EO_PATH}video/video.mp4')
-video_from_image = file.VideoFile(f'{EO_PATH}videofromimage/video.mp4')
+image_video = file.VideoFile(f'{EO_PATH}videofromimage/video.mp4')
 narrated_video = file.VideoFile(f'{EO_PATH}narratedvideo/video.mp4')
 
 subtitled_videos_path = f'{EO_PATH}subtitlednarratedvideo/subtitlednarratedvideo/'

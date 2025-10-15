@@ -3,8 +3,8 @@ from mediaichemy.ai.llm.agent import AgentAI
 import logging
 
 from mediaichemy.media.single import (Image, Video, Narration)
-from mediaichemy.media.multi import (VideoFromImage, NarrationWithBackground,
-                                     SubtitledNarratedVideo)
+from mediaichemy.media.multi import (ImageVideo, NarrationWithBackground,
+                                     StorylineVideo)
 
 logger = logging.getLogger(__name__)
 
@@ -15,19 +15,19 @@ MEDIA_TYPES = {
         "Static image generation"),
     "video": (
         Video,
-        "Full video generation"),
+        "Minimal video generation"),
     "narration": (
         Narration,
         "Audio narration only"),
-    "video_from_image": (
-        VideoFromImage,
-        "Animate a static image"),
+    "image_video": (
+        ImageVideo,
+        "Create an image then animate it"),
     "narration_with_background": (
         NarrationWithBackground,
         "Audio narration with background music"),
-    "subtitled_narrated_video": (
-        SubtitledNarratedVideo,
-        "Video with narration and subtitles")
+    "storyline_video": (
+        StorylineVideo,
+        "A complete video with narration and subtitles")
 }
 
 MEDIA_DESCRIPTIONS = "\n".join([f"- {name}: {info[1]}" for name, info in MEDIA_TYPES.items()])

@@ -80,4 +80,4 @@ class MediaCreator:
 
     async def create_captions(self):
         self._check_outline()
-        return await self.media.create_captions()
+        return await self.media.create_captions(model=self.creator_model)

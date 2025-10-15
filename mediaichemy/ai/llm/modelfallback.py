@@ -18,7 +18,7 @@ class ModelFallback:
     @staticmethod
     def should_retry(error):
         if isinstance(error, ModelHTTPError):
-            return getattr(error, "status_code", None) in [400, 404, 429]
+            return getattr(error, "status_code", None) in [400, 404, 429, 502, 503]
         return False
 
     @staticmethod
