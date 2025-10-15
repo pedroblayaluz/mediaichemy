@@ -114,6 +114,9 @@ video_params = VideoParameters(
 video = await Video(params=video_params).create()
 ```
 
+https://github.com/user-attachments/assets/da8a297b-3808-49e1-b635-7358339a0d49
+
+
 #### Narration
 ```python
 from mediaichemy.media.single import Narration
@@ -150,7 +153,8 @@ image_video_params = ImageVideoParameters(
 )
 image_video = await ImageVideo(params=image_video_params).create()
 ```
-https://github.com/pedroblayaluz/mediaichemy/raw/refs/heads/main/tests/examples/imagevideo/pink_mantis.mp4
+https://github.com/user-attachments/assets/515ea7ee-2084-44eb-a4b8-90cb4602e4a7
+
 #### Storyline Video
 ```python
 from mediaichemy.media.multi import StorylineVideo
@@ -202,7 +206,8 @@ media = await creator.create(user_prompt=(
     "The video features a hyperrealistic detailed natural setting."),
     narration_voice_name='en_US-joe-medium')
 ```
-https://raw.githubusercontent.com/pedroblayaluz/mediaichemy/refs/heads/main/tests/examples/storyline/koan.mp4
+https://github.com/user-attachments/assets/4dbaf275-0070-4117-a816-f5c775d39c91
+
 
 
 #### Letting MediaCreator pick the best media type
