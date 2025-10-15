@@ -113,7 +113,7 @@ video_params = VideoParameters(
 )
 video = await Video(params=video_params).create()
 ```
-<video src="tests/examples/video/space_dog.mp4"></video>
+https://raw.githubusercontent.com/pedroblayaluz/mediaichemy/refs/heads/main/tests/examples/video/space_dog.mp4
 
 #### Narration
 ```python
@@ -151,7 +151,7 @@ image_video_params = ImageVideoParameters(
 )
 image_video = await ImageVideo(params=image_video_params).create()
 ```
-<video src="tests/examples/imagevideo/pink_mantis.mp4" controls></video>
+https://raw.githubusercontent.com/pedroblayaluz/mediaichemy/refs/heads/main/tests/examples/imagevideo/pink_mantis.mp4
 
 #### Storyline Video
 ```python
@@ -178,7 +178,7 @@ storyline_video_params = StorylineVideoParameters(
 )
 storyline_video = await StorylineVideo(params=storyline_video_params).create()
 ```
-<video src="tests/examples/storyline/rain.mp4" controls></video>
+https://raw.githubusercontent.com/pedroblayaluz/mediaichemy/refs/heads/main/tests/examples/storyline/rain.mp4
 
 ## Using the MediaCreator
 
@@ -201,7 +201,7 @@ media = await creator.create(user_prompt=(
     "The video features a hyperrealistic detailed natural setting."),
     narration_voice_name='en_US-joe-medium')
 ```
-<video src="tests/examples/storyline//koan.mp4"></video>
+https://raw.githubusercontent.com/pedroblayaluz/mediaichemy/refs/heads/main/tests/examples/storyline/koan.mp4
 
 
 #### Letting MediaCreator pick the best media type
