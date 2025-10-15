@@ -150,9 +150,7 @@ image_video_params = ImageVideoParameters(
 )
 image_video = await ImageVideo(params=image_video_params).create()
 ```
-
-https://raw.githubusercontent.com/pedroblayaluz/mediaichemy/refs/heads/main/tests/examples/imagevideo/pink_mantis.mp4
-
+https://github.com/pedroblayaluz/mediaichemy/raw/refs/heads/main/tests/examples/imagevideo/pink_mantis.mp4
 #### Storyline Video
 ```python
 from mediaichemy.media.multi import StorylineVideo
